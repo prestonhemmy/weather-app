@@ -1,5 +1,7 @@
 # Weather App
 
+![weather app rain cloud logo](public/logo.png)
+
 A modern, responsive weather application built with React and TypeScript that provides current weather conditions and 5-day forecasts for cities worldwide.
 
 ## 🌟 Features

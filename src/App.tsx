@@ -1,38 +1,64 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { ForecastData, GeocodingData, WeatherData } from './types/weather';
+import { weatherService } from './services/weatherServices';
+import SearchBar from './components/SearchBar';
+import ForecastDisplay from './components/ForecastDisplay';
+import ErrorMessage from './components/ErrorMessage';
+import LoadingSpinner from './components/LoadingSpinner';
 
 function App() {
+  const [forecast, setForecast] = useState<ForecastData | null>(null);
+  const [location, setLocation] = useState<GeocodingData | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  console.log('API Key exists:', !!process.env.REACT_APP_OPENWEATHER_API_KEY)
+
+  /**
+   * Asynchronous function which fetches weather data for a given city
+   */
+  const handleSearch = async (city: string) => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const { forecast, location } = await weatherService.getWeatherByCity(city);
+    
+      // debugging
+      console.log("forecast:", forecast);
+      console.log("location:", location);
+
+      setForecast(forecast);
+      setLocation(location);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Unknown error')
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-blue-50">
+    <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold text-blue-900 text-center mb-8">
+        {/* Header */}
+        <h1 className="text-4xl text-transparent bg-clip-text font-bold bg-gradient-to-br from-blue-400 to-purple-600 text-center mb-8">
           Weather App
         </h1>
-        
-        {/* Test Card to verify Tailwind is working */}
-        <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden">
-          <div className="p-8">
-            <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
-              Setup Status
-            </div>
-            <p className="mt-2 text-gray-500">
-              ✅ React with TypeScript is configured
-            </p>
-            <p className="mt-1 text-gray-500">
-              ✅ TailwindCSS v3 is working
-            </p>
-            <p className="mt-1 text-gray-500">
-              ✅ Ready to build your weather app!
-            </p>
-          </div>
-        </div>
 
-        {/* Gradient test */}
-        <div className="mt-8 p-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white text-center rounded-lg max-w-md mx-auto">
-          If you see this gradient, Tailwind is properly configured!
+        {/* Search Field */}
+        <SearchBar onSearch={handleSearch}></SearchBar>
+
+        {/* Display Field */}
+        <div className="mt-8">
+          {loading && <LoadingSpinner />}
+          {error && <ErrorMessage message={error} />}
+          {forecast && location && !loading && (
+            <ForecastDisplay data={forecast} location={location} />
+          )}
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default App;

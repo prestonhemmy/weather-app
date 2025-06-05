@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { ForecastData, GeocodingData, WeatherData } from './types/weather';
 import { weatherService } from './services/weatherServices';
 import SearchBar from './components/SearchBar';
-import ForecastDisplay from './components/ForecastDisplay';
+import CurrentWeather from './components/CurrentWeather';
+// import ForecastDisplay from './components/ForecastDisplay';
 import ErrorMessage from './components/ErrorMessage';
 import LoadingSpinner from './components/LoadingSpinner';
 
@@ -53,7 +54,7 @@ function App() {
           {loading && <LoadingSpinner />}
           {error && <ErrorMessage message={error} />}
           {forecast && location && !loading && (
-            <ForecastDisplay data={forecast} location={location} />
+            <CurrentWeather data={forecast} location={location} />
           )}
         </div>
       </div>

@@ -24,25 +24,6 @@ export const weatherService = {
       throw new Error('City not found');
     }
 
-    // dubugging
-    console.log(response.data);
-
-    return response.data;
-  },
-
-  // get current weather using coords
-  getCurrentWeather: async (lat: number, lon: number): Promise<WeatherData> => {
-    if (!API_KEY) {
-      throw new Error('OpenWeather API key is not configured');
-    }
-    
-    const response = await axios.get<WeatherData>(
-      `${BASE_URL}/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=imperial`
-    );
-
-    // debugging
-    console.log(response.data);
-
     return response.data;
   },
 
@@ -56,22 +37,12 @@ export const weatherService = {
       `${BASE_URL}/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=imperial`
     );
 
-    // debugging
-    console.log(response.data);
-
     return response.data;
   },
 
   getWeatherByCity: async (city: string) => {
     const geoData = await weatherService.getCoordinates(city);
     const { lat, lon } = geoData[0];
-
-    // const forecast = await weatherService.getForecast(lat, lon);
-
-    // const [weather, forecast] = await Promise.all([
-    //   weatherService.getCurrentWeather(lat, lon),
-    //   weatherService.getForecast(lat, lon)
-    // ])
 
     const forecast = await weatherService.getForecast(lat, lon);
 

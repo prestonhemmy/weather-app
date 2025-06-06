@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GeocodingData, WeatherData, ForecastData } from '../types/weather';
+import { GeocodingData, ForecastData } from '../types/weather';
 
 const API_KEY = process.env.REACT_APP_OPENWEATHER_API_KEY;
 const BASE_URL = 'https://api.openweathermap.org/data/2.5';

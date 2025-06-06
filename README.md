@@ -1,6 +1,8 @@
 # Weather App
 
-![weather app rain cloud logo](public/logo.png)
+<div>
+    <img src="public/logo.png" alt="Weather app logo" style="width:50%; height:auto; margin-bottom:20px">
+</div>
 
 A modern, responsive weather application built with React and TypeScript that provides current weather conditions and 5-day forecasts for cities worldwide.
 

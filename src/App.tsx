@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import { ForecastData, GeocodingData, WeatherData } from './types/weather';
+import React, { useState, useEffect } from 'react';
+import { ForecastData, GeocodingData } from './types/weather';
 import { weatherService } from './services/weatherServices';
 import SearchBar from './components/SearchBar';
-import CurrentWeather from './components/CurrentWeather';
-// import ForecastDisplay from './components/ForecastDisplay';
+import WeatherHeader from './components/WeatherHeader';
 import ErrorMessage from './components/ErrorMessage';
 import LoadingSpinner from './components/LoadingSpinner';
 
@@ -13,7 +12,10 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  console.log('API Key exists:', !!process.env.REACT_APP_OPENWEATHER_API_KEY)
+  // Load default city on mount (FOR DEVELOPMENT -> TODO: Remove later)
+  useEffect(() => {
+    handleSearch('Portland');
+  }, []);
 
   /**
    * Asynchronous function which fetches weather data for a given city
@@ -24,10 +26,6 @@ function App() {
       setError(null);
 
       const { forecast, location } = await weatherService.getWeatherByCity(city);
-    
-      // debugging
-      console.log("forecast:", forecast);
-      console.log("location:", location);
 
       setForecast(forecast);
       setLocation(location);
@@ -39,25 +37,31 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <h1 className="text-4xl text-transparent bg-clip-text font-bold bg-gradient-to-br from-blue-400 to-purple-600 text-center mb-8">
-          Weather App
-        </h1>
-
-        {/* Search Field */}
-        <SearchBar onSearch={handleSearch}></SearchBar>
-
-        {/* Display Field */}
-        <div className="mt-8">
-          {loading && <LoadingSpinner />}
-          {error && <ErrorMessage message={error} />}
-          {forecast && location && !loading && (
-            <CurrentWeather data={forecast} location={location} />
-          )}
+    <div className="min-h-screen bg-gradient-to-br from-blue-300 to-purple-300">
+        {/* Header Section */}
+        <div className="relative">
+          <div className="absolute top-4 right-4 z-10">
+            <SearchBar onSearch={handleSearch} />
+          </div>
+          <div className="pt-20 pb-12">
+            {loading && (
+              <div className="flex justify-center">
+                <LoadingSpinner />
+              </div>
+            )}
+            {error && (
+              <div className="flex justify-center">
+                <ErrorMessage message={error} />
+              </div>
+            )}
+            {forecast && location && !loading && !error && (
+              <WeatherHeader data={forecast} location={location} />
+            )}
+          </div>
         </div>
-      </div>
+
+        {/* Main Content Section */}
+        {/* TODO */}
     </div>
   );
 };

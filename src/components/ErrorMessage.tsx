@@ -6,9 +6,11 @@ interface ErrorMessageProps {
 
 const ErrorMessage: React.FC<ErrorMessageProps> = ({ message }) => {
     return (
-        <div className="max-w-md mx-auto bg-red-100 border-red-400 text-red-700 px-4 py-3 rounded-lg">
-            <p className="font-medium">Error</p>
-            <p className="text-sm">{message}</p>
+        <div className="mt-12">
+            <div className="max-w-md mx-auto bg-gray-600/20 backdrop-blur-sm text-white px-8 py-3 rounded-lg">
+                <p className="font-medium">Error</p>
+                <p className="text-sm text-gray-300">{message}</p>
+            </div>
         </div>
     );
 };

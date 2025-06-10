@@ -84,7 +84,7 @@ const SunriseSunset: React.FC<SunriseSunsetProps> = ({ sunriseUnix, sunsetUnix }
 
             {/* Time Display */}
             <div className="flex-1 flex flex-col justify-center items-center space-y-4">
-                <span className="text-white text-md">
+                <span className="text-white text-2xl">
                     {now >= sunrise ? formatTime(sunset) : formatTime(sunrise)}
                 </span>
 

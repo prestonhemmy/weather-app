@@ -29,7 +29,7 @@ const FeelsLike: React.FC<FeelsLikeProps> = ({ temperature }) => {
 
             {/* Temperature Display */}
             <div className="flex-1 flex flex-col justify-center items-center">
-                <span className="text-white text-md">
+                <span className="text-white text-3xl">
                     {Math.round(temperature)}°
                 </span>
             </div>

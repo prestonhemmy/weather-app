@@ -10,7 +10,6 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
 
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault();
-        console.log('Form submitted with city:', city); // debugging TODO: Remove later
         
         if (city.trim()) {
             onSearch(city.trim());

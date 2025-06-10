@@ -1,10 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { ForecastData, GeocodingData } from './types/weather';
+import { 
+  ForecastData, 
+  GeocodingData 
+} from './types/weather';
 import { weatherService } from './services/weatherServices';
-import SearchBar from './components/SearchBar';
-import WeatherHeader from './components/WeatherHeader';
-import ErrorMessage from './components/ErrorMessage';
-import LoadingSpinner from './components/LoadingSpinner';
+import {
+  SearchBar,
+  ErrorMessage,
+  LoadingSpinner,
+  WeatherHeader,
+  FiveDayForecast,
+  FeelsLike,
+  SunriseSunset,
+  Wind
+} from './components';
 
 function App() {
   const [forecast, setForecast] = useState<ForecastData | null>(null);
@@ -61,7 +70,30 @@ function App() {
         </div>
 
         {/* Main Content Section */}
-        {/* TODO */}
+        {/* TODO: Ensure responsive design of UI elements. In particular, screen sizes
+            of 'md' and above should use the below implementation, otherwise for smaller
+            screen sizes the Feels Like and Sunrise/Sunset (row) and Wind grid should be
+            positioned below the 5-Day Forecast display. */}
+        {forecast && location && !loading && !error && (
+          <div className="max-w-5xl mx-auto px-4 pb-8">
+            <div className="grid grid-cols-2 gap-2">
+              <FiveDayForecast data={forecast}/>
+
+              <div className="grid grid-cols-2 gap-2">
+                <FeelsLike temperature={forecast.list[0].main.feels_like}/>
+                <SunriseSunset sunriseUnix={forecast.city.sunrise} sunsetUnix={forecast.city.sunset}/>
+
+                <div className="col-span-2">
+                  <Wind 
+                    speed={forecast.list[0].wind.speed}
+                    gust={forecast.list[0].wind.gust}
+                    deg={forecast.list[0].wind.deg}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
     </div>
   );
 };

@@ -72,16 +72,20 @@ function App() {
         {/* Main Content Section */}
         {/* TODO: Ensure responsive design of UI elements. In particular, screen sizes
             of 'md' and above should use the below implementation, otherwise for smaller
-            screen sizes the Feels Like and Sunrise/Sunset (row) and Wind grid should be
+            screen sizes the Feels Like and Sunrise/Sunset and Wind grid should be
             positioned below the 5-Day Forecast display. */}
         {forecast && location && !loading && !error && (
-          <div className="max-w-5xl mx-auto px-4 pb-8">
+          <div className="max-w-3xl mx-auto px-4 pb-8">
             <div className="grid grid-cols-2 gap-2">
               <FiveDayForecast data={forecast}/>
 
               <div className="grid grid-cols-2 gap-2">
                 <FeelsLike temperature={forecast.list[0].main.feels_like}/>
-                <SunriseSunset sunriseUnix={forecast.city.sunrise} sunsetUnix={forecast.city.sunset}/>
+                <SunriseSunset 
+                  sunriseUTC={forecast.city.sunrise} 
+                  sunsetUTC={forecast.city.sunset} 
+                  timezone={forecast.city.timezone}
+                />
 
                 <div className="col-span-2">
                   <Wind 

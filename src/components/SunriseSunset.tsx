@@ -1,48 +1,71 @@
 import React from "react";
 
 interface SunriseSunsetProps {
-    sunriseUnix: number;
-    sunsetUnix: number;
+    sunriseUTC: number;
+    sunsetUTC: number;
+    timezone: number;
 }
 
-const SunriseSunset: React.FC<SunriseSunsetProps> = ({ sunriseUnix, sunsetUnix }) => {
-    var now = new Date();
-    const sunrise = new Date(sunriseUnix * 1000);
-    const sunset = new Date(sunsetUnix * 1000);
+const SunriseSunset: React.FC<SunriseSunsetProps> = ({ sunriseUTC, sunsetUTC, timezone }) => {
+    const now = Date.now();
+
+    // current time in selected city's timezone
+    // const time = new Date(now + (timezone * 1000));
+
+    // convert sunrise and sunset to milliseconds
+    const sunrise = sunriseUTC * 1000;
+    const sunset = sunsetUTC * 1000;
 
     const isDay = now >= sunrise && now <= sunset;
 
     // Calculate current progress into Day or Night
     let progress = 0;
     if (isDay) {
-        const dayDuration = sunset.getTime() - sunrise.getTime();
-        const elapsed = now.getTime() - sunrise.getTime();
+        const dayDuration = sunset - sunrise;
+        const elapsed = now - sunrise;
         progress = (elapsed / dayDuration) * 100;
     } else {
-        // if between sunset and midnight -> use next sunrise and current sunset
-        const nextSunrise = new Date(sunrise);
+        let nightStart: number;
+        let nightEnd: number;
+
+        // if between sunset and midnight -> use next sunrise
         if (now > sunset) { 
-            nextSunrise.setDate(nextSunrise.getDate() + 1); 
+            nightStart = sunset;
+            nightEnd = sunrise + (24 * 60 * 60 * 1000);
+        
+        // o.w. if between midnight and sunrise -> use previous sunset
+        } else {
+            nightStart = sunset - (24 * 60 * 60 * 1000);
+            nightEnd = sunrise;
         }
 
-        // o.w. if between midnight and sunrise -> use previous sunset and current sunrise
-        const prevSunset = new Date(sunset);
-        if (now < sunrise) { 
-            prevSunset.setDate(prevSunset.getDate() - 1); 
-        }
-
-        const nightDuration = prevSunset.getTime() - nextSunrise.getTime();
-        const elapsed = prevSunset.getTime() - now.getTime();
+        const nightDuration = nightEnd - nightStart;
+        const elapsed = now - nightStart;
         progress = (elapsed / nightDuration) * 100;
     }
 
     progress = Math.max(0, Math.min(100, progress));
 
-    const formatTime = (date: Date) => {
-        return date.toLocaleTimeString("en-us", {
-            hour: '2-digit',
-            minute: '2-digit',
-        }).replace(/^(?:00:)?0?/, '');
+    // format time relative to selected city's timezone
+    const formatTime = (timestamp: number) => {
+        const date = new Date(timestamp * 1000);
+
+        const cityMs = date.getTime() + (timezone * 1000);
+        const cityDate = new Date(cityMs)
+
+        let hours: number;
+        let suffix: string;
+        if (cityDate.getUTCHours() > 12) {
+            hours = cityDate.getUTCHours() - 12;
+            suffix = "PM"
+        } else {
+            hours = cityDate.getUTCHours();
+            suffix = "AM"
+        }
+
+        const minutes = cityDate.getUTCMinutes();
+
+        return `${hours.toString()}:${minutes.toString().padStart(2, '0')} ${suffix}`;
     }
 
 
@@ -85,7 +108,7 @@ const SunriseSunset: React.FC<SunriseSunsetProps> = ({ sunriseUnix, sunsetUnix }
             {/* Time Display */}
             <div className="flex-1 flex flex-col justify-center items-center space-y-4">
                 <span className="text-white text-2xl">
-                    {now >= sunrise ? formatTime(sunset) : formatTime(sunrise)}
+                    {now >= sunrise ? formatTime(sunsetUTC) : formatTime(sunriseUTC)}
                 </span>
 
                 {/* Progress Bar */}

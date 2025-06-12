@@ -25,8 +25,8 @@ const WeatherHeader: React.FC<WeatherHeaderProps> = ({ data, location }) => {
                 {location.name}, {location.country}         {/* Including country for now */}
             </h1>
 
-            <div className="text-6xl font-light mb-2">
-                {current.main.temp}°
+            <div className="text-6xl font-light mb-2 ml-6">
+                {Math.round(current.main.temp)}°
             </div>
 
             <p className="text-lg font-light mb-2 capitalize">

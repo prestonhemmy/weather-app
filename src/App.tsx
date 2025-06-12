@@ -27,17 +27,29 @@ function App() {
   }, []);
 
   /**
-   * Asynchronous function which fetches weather data for a given city
+   * Asynchronous function which fetches weather data for a given city (default)
+   * or for a given location (if provided)
    */
-  const handleSearch = async (city: string) => {
+  const handleSearch = async (city: string, specificLocation?: GeocodingData) => {
     try {
       setLoading(true);
       setError(null);
 
-      const { forecast, location } = await weatherService.getWeatherByCity(city);
+      let weatherData;
 
-      setForecast(forecast);
-      setLocation(location);
+      // if specific location provided use coords
+      if (specificLocation) {
+        weatherData = await weatherService.getForecast(specificLocation.lat, specificLocation.lon);
+        setLocation(specificLocation);
+        setForecast(weatherData);
+
+      // O.W. use city (default)
+      } else {
+        weatherData = await weatherService.getWeatherByCity(city);
+        setLocation(weatherData.location);
+        setForecast(weatherData.forecast);
+      }
+
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Unknown error')
     } finally {

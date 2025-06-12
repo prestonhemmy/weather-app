@@ -17,7 +17,7 @@ export const weatherService = {
     }
 
     const response = await axios.get<GeocodingData[]>(
-      `${GEO_URL}/direct?q=${city}&limit=1&appid=${API_KEY}`
+      `${GEO_URL}/direct?q=${city}&limit=5&appid=${API_KEY}`
     );
 
     if (response.data.length === 0) {

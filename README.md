@@ -26,9 +26,7 @@ A modern, responsive weather application built with React and TypeScript that pr
 
 ## Demo
 
-<div style="width:50%; height:auto;" >
-    <video controls src="public/demo_1.mp4" title="Demo video"></video>
-</div>
+https://github.com/user-attachments/assets/8b496d55-4e05-4606-914c-ce8fa91cb908
 
 ## 📋 Prerequisites
 

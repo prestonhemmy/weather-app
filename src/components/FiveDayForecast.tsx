@@ -109,7 +109,9 @@ const FiveDayForecast: React.FC<FiveDayForecastProps> = ({ data }) => {
                 {dailyForecasts.map((day, index) => (
                     <div key={index}>
                         <div className="flex items-center justify-between py-2 gap-2">
+                        <div className="flex items-center justify-between py-2 gap-2">
                             {/* Day */}
+                            <div className="w-12 sm:w-20 flex-shrink-0">
                             <div className="w-12 sm:w-20 flex-shrink-0">
                                 <p className="text-white text-sm">
                                     {index === 0 ? 'Today' : day.day.slice(0, 3)}
@@ -121,6 +123,7 @@ const FiveDayForecast: React.FC<FiveDayForecastProps> = ({ data }) => {
                                 src={getWeatherIcon(day.weather.icon)}
                                 alt={day.weather.description}
                                 className="w-8 h-8 flex-shrink-0"
+                                className="w-8 h-8 flex-shrink-0"
                             />
 
                             {/* Weather Description */}
@@ -131,6 +134,7 @@ const FiveDayForecast: React.FC<FiveDayForecastProps> = ({ data }) => {
                             </div>
 
                             {/* High and Low */}
+                            <div className="flex items-baseline space-x-1 sm:space-x-2 flex-shrink-0">
                             <div className="flex items-baseline space-x-1 sm:space-x-2 flex-shrink-0">
                                 <span className="text-white text-md">{day.temps[1]}°</span>
                                 <span className="text-gray-300 text-xs">{day.temps[0]}°</span>

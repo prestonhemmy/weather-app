@@ -1,9 +1,5 @@
 # Weather App
 
-<!-- ![weather app rain cloud logo](public/logo.png) -->
-
-
-
 <div>
     <img src="public/logo.png" alt="Weather app logo" style="width:50%; height:auto; margin-bottom:10px">
 </div>
@@ -12,10 +8,10 @@ A modern, responsive weather application built with React and TypeScript that pr
 
 ## 🌟 Features
 
-- **Current Weather Display**: Real-time weather data including temperature, humidity, wind speed, and conditions
+- **Current Weather Display**: Real-time weather data including temperature, precipitation, wind, and sunrise/sunset.
 - **5-Day Forecast**: Extended forecast with daily weather predictions
-- **City Search**: Search weather by city name with intelligent error handling
-- **Responsive Design**: Fully responsive interface that works on desktop, tablet, and mobile devices
+- **City Search**: Search weather by city name with predictive suggestions
+- **Responsive Design**: Fully responsive interface that works on desktop and mobile devices
 - **Loading States**: Smooth loading indicators for better user experience
 - **Error Handling**: Graceful error handling for invalid searches and network issues
 
@@ -27,6 +23,10 @@ A modern, responsive weather application built with React and TypeScript that pr
 - **HTTP Client**: Axios
 - **Weather API**: OpenWeatherMap API
 - **Build Tool**: Create React App
+
+## Demo
+
+                                    Coming Soon ...
 
 ## 📋 Prerequisites
 
@@ -84,24 +84,28 @@ The application will open at [http://localhost:3000](http://localhost:3000)
 
 ```
 src/
-├── components/          # React components
-│   ├── SearchBar.tsx    # City search input component
-│   ├── WeatherCard.tsx  # Current weather display
-│   └── ForecastList.tsx # 5-day forecast display
-├── contexts/           # React contexts
-│   └── WeatherContext.tsx
-├── hooks/              # Custom React hooks
-│   └── useWeatherData.ts
-├── services/           # API services
+├── components/             # React components
+│   ├── SearchBar.tsx       # City search input component
+│   ├── WeatherHeader.tsx   # Current weather display
+|   ├── FiveDayForecast.tsx # 5-day forecast display
+|   ├── FeelsLike.tsx       # Feels like temperature display
+|   ├── SunriseSunset.tsx   # Sunrise/Sunset display
+|   ├── index.ts            # Barrel file
+│   └── ...
+├── contexts/               # React contexts
+│   └── ...
+├── hooks/                  # Custom React hooks
+│   └── ...
+├── services/               # API services
 │   └── weatherService.ts
-├── types/              # TypeScript type definitions
+├── types/                  # TypeScript type definitions
 │   └── weather.ts
-├── utils/              # Utility functions
-│   ├── formatters.ts   # Data formatting helpers
-│   └── constants.ts    # App constants
-├── App.tsx             # Main app component
-├── index.tsx           # App entry point
-└── index.css           # Global styles (Tailwind)
+├── utils/                  # Utility functions
+│   └── ...
+├── App.tsx                 # Main app component
+├── index.tsx               # App entry point
+├── index.css               # Global styles (Tailwind)
+└── ...
 ```
 
 ## 🔧 Available Scripts
@@ -122,8 +126,8 @@ Builds the app for production to the `build` folder
 
 This project uses the OpenWeatherMap API with the following endpoints:
 
-- **Current Weather**: `/weather?q={city}&appid={API_KEY}&units=metric`
-- **5-Day Forecast**: `/forecast?q={city}&appid={API_KEY}&units=metric`
+- **Geocoding**: `/direct?q={city name}&limit={limit}&appid={API key}`
+- **5-Day Forecast**: `/forecast?lat={lat}&lon={lon}&appid={API key}&units=imperial`
 
 ### Rate Limits
 - Free tier: 60 calls/minute, 1,000,000 calls/month
@@ -132,10 +136,10 @@ This project uses the OpenWeatherMap API with the following endpoints:
 ## 🎨 Styling
 
 The project uses Tailwind CSS for styling. Key design decisions:
-- Mobile-first responsive design
-- Consistent color scheme based on weather conditions
+- Mobile-first design
+- Responsive custom SVG icons
+- Modern glassmorphism-themed UI components
 - Smooth transitions and loading states
-- Accessible color contrasts
 
 ## 🧪 Testing
 
@@ -151,35 +155,10 @@ Run tests with coverage:
 npm test -- --coverage
 ```
 
-## 🚢 Deployment
-
-### Deploy to Vercel
-
-1. Install Vercel CLI: `npm i -g vercel`
-2. Run `vercel` in the project directory
-3. Follow the prompts
-4. Add environment variables in Vercel dashboard
-
-### Deploy to Netlify
-
-1. Build the project: `npm run build`
-2. Drag and drop the `build` folder to Netlify
-3. Add environment variables in Netlify settings
-
-## 🔮 Future Enhancements
-
-- [ ] Geolocation support for automatic local weather
-- [ ] Favorite cities list with localStorage
-- [ ] Weather maps integration
-- [ ] Hourly forecast view
-- [ ] Weather alerts and notifications
-- [ ] Dark mode support
-- [ ] PWA functionality for offline access
-- [ ] Multiple language support
-- [ ] Unit conversion (Celsius/Fahrenheit)
-
 ## 👤 Author
 
 **Preston Hemmy**
-- GitHub: [@prestonhemmy](https://github.com/prestonhemmy)
-- LinkedIn: [Preston Hemmy](https://linkedin.com/in/prestonhemmy)
+
+GitHub: [@prestonhemmy](https://github.com/prestonhemmy)
+
+LinkedIn: [Preston Hemmy](https://linkedin.com/in/prestonhemmy)

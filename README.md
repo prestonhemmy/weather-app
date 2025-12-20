@@ -6,7 +6,8 @@
 
 A modern, responsive weather application built with React and TypeScript that provides current weather conditions and 5-day forecasts for cities worldwide.
 
-## 🌟 Features
+
+## Features
 
 - **Current Weather Display**: Real-time weather data including temperature, precipitation, wind, and sunrise/sunset.
 - **5-Day Forecast**: Extended forecast with daily weather predictions
@@ -15,7 +16,8 @@ A modern, responsive weather application built with React and TypeScript that pr
 - **Loading States**: Smooth loading indicators for better user experience
 - **Error Handling**: Graceful error handling for invalid searches and network issues
 
-## 🛠️ Tech Stack
+
+## Tech Stack
 
 - **Frontend Framework**: React 18 with TypeScript
 - **Styling**: Tailwind CSS
@@ -24,18 +26,21 @@ A modern, responsive weather application built with React and TypeScript that pr
 - **Weather API**: OpenWeatherMap API
 - **Build Tool**: Create React App
 
+
 ## Demo
 
 https://github.com/user-attachments/assets/8b496d55-4e05-4606-914c-ce8fa91cb908
 
-## 📋 Prerequisites
+
+## Prerequisites
 
 Before you begin, ensure you have the following installed:
 - Node.js (v14.0.0 or higher)
 - npm (v6.0.0 or higher)
 - Git
 
-## 🚀 Getting Started
+
+## Getting Started
 
 ### 1. Clone the Repository
 
@@ -80,7 +85,8 @@ npm start
 
 The application will open at [http://localhost:3000](http://localhost:3000)
 
-## 📁 Project Structure
+
+## Project Structure
 
 ```
 src/
@@ -108,7 +114,8 @@ src/
 └── ...
 ```
 
-## 🔧 Available Scripts
+
+## Available Scripts
 
 ### `npm start`
 Runs the app in development mode at [http://localhost:3000](http://localhost:3000)
@@ -122,7 +129,8 @@ Builds the app for production to the `build` folder
 ### `npm run eject`
 **Note: this is a one-way operation. Once you eject, you can't go back!**
 
-## 🌐 API Usage
+
+## API Usage
 
 This project uses the OpenWeatherMap API with the following endpoints:
 
@@ -133,7 +141,8 @@ This project uses the OpenWeatherMap API with the following endpoints:
 - Free tier: 60 calls/minute, 1,000,000 calls/month
 - Data updates every 10 minutes
 
-## 🎨 Styling
+
+## Styling
 
 The project uses Tailwind CSS for styling. Key design decisions:
 - Mobile-first design
@@ -141,7 +150,8 @@ The project uses Tailwind CSS for styling. Key design decisions:
 - Modern glassmorphism-themed UI components
 - Smooth transitions and loading states
 
-## 🧪 Testing
+
+## Testing
 
 Run the test suite:
 
@@ -155,7 +165,7 @@ Run tests with coverage:
 npm test -- --coverage
 ```
 
-## 👤 Author
+## Author
 
 **Preston Hemmy**
 
